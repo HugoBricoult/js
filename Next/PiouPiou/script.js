@@ -14,7 +14,8 @@ var game;
 let goLeft = false;
 let goRight = false;
 let step = 0;
-
+var timer;
+let temps;
 class ball {
     constructor(x, y, gone) {
         this.x = x;
@@ -23,7 +24,9 @@ class ball {
     }
 }
 (() => {
-
+    if (!localStorage.getItem('temps')) {
+        localStorage.setItem('temps', "[]");
+    }
     document.getElementById("btn").addEventListener("click", () => {
         start();
     });
@@ -64,13 +67,31 @@ function init() {
     balls = [];
     ctx = canvas.getContext("2d");
     randomCible();
+    document.getElementById("record").innerHTML = "";
+    let reco = JSON.parse(localStorage.getItem("temps"));
+    let tmp = [];
+    reco.forEach(element => {
+        console.log(element);
+        tmp.push(element.temps);
+    });
+    tmp.sort(function(a, b) { return a - b; });
+    for (let i = 0; i < tmp.length; i++) {
+        document.getElementById("record").innerHTML += "Temps : " + tmp[i] + "s<br>";
+    }
+}
+
+function setTimer() {
+    temps = Math.ceil((Date.now() - timer) / 100) / 10;
+    document.getElementById("timer").innerHTML = "Temps : " + temps + "s";
 }
 
 function start() {
+    timer = Date.now();
     document.getElementById("btn").blur();
     clearInterval(game);
     init();
     game = setInterval(() => {
+        setTimer();
         draw();
         update();
     }, time);
@@ -113,20 +134,21 @@ function update() {
 
             setTimeout(() => {
                 step = 2;
-            }, 200);
+            }, 100);
             setTimeout(() => {
                 step = 3;
-            }, 400);
+            }, 200);
             setTimeout(() => {
 
                 step = 0;
                 randomCible();
 
 
-            }, 600);
+            }, 300);
             if (counter == 10) {
                 clearInterval(game);
                 win();
+                record();
             }
 
         } else if (balls[i].y <= -10) {
@@ -140,10 +162,28 @@ function win() {
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, 400, 300);
     ctx.fillStyle = "#ffffff";
-    ctx.font = '48px serif';
-    ctx.fillText('Vous avez Gagné !', 10, 150);
+    ctx.font = '35px serif';
+    ctx.fillText('Vous avez Gagné en ' + temps + "s", 10, 150);
     ctx.stroke();
     ctx.closePath();
+}
+
+function record() {
+    let arr = { "temps": temps };
+    document.getElementById("record").innerHTML = "";
+    let reco = JSON.parse(localStorage.getItem("temps"));
+    reco.push(arr);
+    localStorage.setItem("temps", JSON.stringify(reco));
+    let tmp = [];
+    reco.forEach(element => {
+        console.log(element);
+        tmp.push(element.temps);
+    });
+    tmp.sort(function(a, b) { return a - b; });
+    for (let i = 0; i < tmp.length; i++) {
+        document.getElementById("record").innerHTML += "Temps : " + tmp[i] + "s<br>";
+    }
+
 }
 
 function randomCible() {
