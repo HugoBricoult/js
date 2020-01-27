@@ -75,7 +75,7 @@ function init() {
         tmp.push(element.temps);
     });
     tmp.sort(function(a, b) { return a - b; });
-    for (let i = 0; i < tmp.length; i++) {
+    for (let i = 0; i < 5; i++) {
         document.getElementById("record").innerHTML += "Temps : " + tmp[i] + "s<br>";
     }
 }
