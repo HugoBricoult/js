@@ -34,6 +34,7 @@ let historyHint = [
 ];
 let currentAnswer = ["gray", "gray", "gray", "gray"];
 let drawHistory = () => {
+    ctxHistory.lineWidth = 7;
     //reset canvas
     ctxHistory.beginPath();
     ctxHistory.fillStyle = "lightgrey";
@@ -74,6 +75,7 @@ let drawHistory = () => {
     }
 };
 let drawAnswer = () => {
+    ctxAnswer.lineWidth = 7;
     //reset canvas
     ctxAnswer.beginPath();
     ctxAnswer.fillStyle = "lightgrey";
