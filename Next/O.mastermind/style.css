@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+}
+
+.gameboard {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: lightgray;
+    border: 5px solid gray;
+    margin-top: 50vh;
+    transform: translateY(-50%);
+}
+
+.plate {
+    display: flex;
+    flex-direction: column;
+}
+
+.choice {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.choice ul {
+    padding: 0;
+    margin-top: 0;
+}
+
+.choice li {
+    list-style-type: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.choice a {
+    text-decoration: none;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.history {
+    border-bottom: 2px solid gray;
+}
+
+.answer {
+    border-bottom: 2px solid gray;
+}
+
+#red {
+    background-color: red;
+}
+
+#blue {
+    background-color: blue;
+}
+
+#yellow {
+    background-color: yellow;
+}
+
+#green {
+    background-color: green;
+}
+
+#brown {
+    background-color: brown;
+}
+
+#orange {
+    background-color: orange;
+}
