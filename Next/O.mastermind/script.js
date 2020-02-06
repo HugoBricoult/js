@@ -4,7 +4,8 @@ let answer;
 let ctxAnswer;
 let currentAnswerIndex = 0;
 let tryNumber = 8;
-let colors = ["green", "blue", "yellow", "red", "brown", "orange"];
+const colors = ["green", "blue", "yellow", "red", "brown", "orange"];
+const colors8 = ["pink", "blueviolet"];
 let colorsMix;
 const HISTORY_CASE_WIDTH = 50;
 const HISTORY_WIDTH = 200;
@@ -32,6 +33,22 @@ let historyHint = [
     ["gray", "gray", "gray", "gray"],
     ["gray", "gray", "gray", "gray"]
 ];
+
+let colorsOptions = document.createElement("ul");
+colorsOptions.setAttribute("id", "colOps");
+let colorsOpLi1 = document.createElement("li");
+let colorsOpLi2 = document.createElement("li");
+let colorsOpA1 = document.createElement("a");
+colorsOpA1.setAttribute("id", "pink");
+colorsOpA1.setAttribute("onclick", "update('pink')");
+let colorsOpA2 = document.createElement("a");
+colorsOpA2.setAttribute("id", "blueviolet");
+colorsOpA2.setAttribute("onclick", "update('blueviolet')");
+colorsOpLi1.appendChild(colorsOpA1);
+colorsOpLi2.appendChild(colorsOpA2);
+colorsOptions.appendChild(colorsOpLi1);
+colorsOptions.appendChild(colorsOpLi2);
+
 let currentAnswer = ["gray", "gray", "gray", "gray"];
 let drawHistory = () => {
     ctxHistory.lineWidth = 7;
@@ -91,7 +108,7 @@ let drawAnswer = () => {
     }
 };
 let update = (color) => {
-    console.log(colorsMix);
+    console.log(colors);
     currentAnswer[currentAnswerIndex] = color;
     currentAnswerIndex++;
     drawAnswer();
@@ -110,7 +127,10 @@ let update = (color) => {
         }
         goodchoice = goodchoice - goodPlace;
         if (goodPlace == 4) {
-            alert("Vous avez trouvé la combinaison !");
+            setTimeout(() => {
+                alert("Vous avez trouvé la combinaison !");
+            }, 20);
+
         }
         for (let i = 0; i < historyHint.length; i++) {
             if (goodPlace != 0) {
@@ -126,18 +146,79 @@ let update = (color) => {
         currentAnswerIndex = 0;
         currentAnswer = ["gray", "gray", "gray", "gray"];
         drawHistory();
+
+    }
+}
+
+let reset = () => {
+    currentAnswerIndex = 0;
+    tryNumber = 8;
+    currentAnswer = ["gray", "gray", "gray", "gray"];
+    historyHint = [
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"]
+    ];
+    historyPoint = [
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"],
+        ["gray", "gray", "gray", "gray"]
+    ];
+}
+
+let optionsChoose = (action) => {
+    switch (action) {
+        case "mode6":
+            let restart = confirm("Voulez vous recommencer ?");
+            if (restart) {
+                if (!!document.getElementById("colOps")) {
+                    document.getElementById("colOps").remove();
+                }
+                reset();
+                colorsMix = shuffle(colors).slice(0, 4);
+                drawHistory();
+                drawAnswer();
+            }
+            break;
+        case "mode8":
+            let restarts = confirm("Voulez vous recommencer ?");
+            if (restarts) {
+                if (!document.getElementById("colOps")) {
+                    document.getElementById("choice").appendChild(colorsOptions);
+                }
+                reset();
+                colorsMix = shuffle(colors.concat(colors8)).slice(0, 4);
+                drawHistory();
+                drawAnswer();
+            }
+            break;
     }
 }
 
 function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
+    let tab = a;
+    for (let i = tab.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
+        [tab[i], tab[j]] = [tab[j], tab[i]];
     }
-    return a;
+    return tab;
 }
 (() => {
-    colorsMix = shuffle(colors).splice(0, 4);
+    console.log(colors);
+    colorsMix = shuffle(colors).slice(0, 4);
+    console.log(colorsMix);
     answer = document.getElementById("answer");
     ctxAnswer = answer.getContext('2d');
     history = document.getElementById("history");

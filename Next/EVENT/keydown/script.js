@@ -16,4 +16,7 @@
                 break;
         }
     });
+    let num = 115;
+    let n = num % 4;
+    console.log(n);
 })();

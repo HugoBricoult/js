@@ -10,40 +10,50 @@
 </head>
 
 <body>
-    <div class="gameboard">
-        <div class="plate">
-            <div class="history">
-                <canvas id="history" width="250px" height="450px"></canvas>
+    <div class="wrapper">
+        <div class="gameboard">
+            <div class="plate">
+                <div class="history">
+                    <canvas id="history" width="250px" height="450px"></canvas>
+                </div>
+                <div class="answer">
+                    <canvas id="answer" width="250px" height="50px"></canvas>
+                </div>
             </div>
-            <div class="answer">
-                <canvas id="answer" width="250px" height="50px"></canvas>
+            <div class="choice" id="choice">
+                <ul>
+                    <li>
+                        <a href="#" id="red" onclick="update('red')"></a>
+                    </li>
+                    <li>
+                        <a href="#" id="blue" onclick="update('blue')"></a>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="#" id="yellow" onclick="update('yellow')"></a>
+                    </li>
+                    <li>
+                        <a href="#" id="green" onclick="update('green')"></a>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="#" id="brown" onclick="update('brown')"></a>
+                    </li>
+                    <li>
+                        <a href="#" id="orange" onclick="update('orange')"></a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="choice">
-            <ul>
-                <li>
-                    <a href="#" id="red" onclick="update('red')"></a>
-                </li>
-                <li>
-                    <a href="#" id="blue" onclick="update('blue')"></a>
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    <a href="#" id="yellow" onclick="update('yellow')"></a>
-                </li>
-                <li>
-                    <a href="#" id="green" onclick="update('green')"></a>
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    <a href="#" id="brown" onclick="update('brown')"></a>
-                </li>
-                <li>
-                    <a href="#" id="orange" onclick="update('orange')"></a>
-                </li>
-            </ul>
+        <div class="options">
+            <div class="option1">
+                <a href="#" onclick="optionsChoose('mode6')">MODE 6</a>
+            </div>
+            <div class="option2">
+                <a href="#" onclick="optionsChoose('mode8')">MODE 8</a>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
